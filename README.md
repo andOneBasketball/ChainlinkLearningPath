@@ -33,6 +33,11 @@ https://polygonscan.com/address/0x5a1805ffd9cfa1f79fb3cfced12e02e342672e2e
 
 <b>:beer: :beer: 完成以上 3 个任务后，请提交用来完成任务的测试网地址，将发送 SBT 证明！ :beer: :beer:</b>
 
+## 实验记录
+npm install -D
+1. DataFeedTask.sol 合约成功发布在 sepolia 的 0xEf72cCD01D88452312302b82A8fC757437FbD8C9
+2. VRFTask.sol 合约成功发布在 sepolia 的 0x73FD49F0b7b3B89f09a6d1839E4876ee54F3Fe95
+3. AutomationTask.sol 合约成功发布在 sepolia 的 0x6Eca5e95631876c3253AEBB75B3abc7EB447f57f
 
 ## 学习资料
 ### 1. Chainlink Data Feed（喂价）
@@ -130,3 +135,5 @@ Chainlink 中国开发者社区会持续性输出 Chainlink 最新信息，并�
 - [如何在 BNB 链上创建 BEP-20 通证](https://learnblockchain.cn/article/3917)
 - [如何在 Polygon 上创建 ERC-20 通证](https://learnblockchain.cn/article/4080)
 - [一文速览Chainlink 2.0白皮书](https://learnblockchain.cn/article/3106)
+
+

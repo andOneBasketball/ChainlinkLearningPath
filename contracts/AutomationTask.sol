@@ -2,6 +2,7 @@
 pragma solidity ^0.8.7;
 
 import "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
+import "hardhat/console.sol";
 
 /*
  * 任务 3 内容，试想一个小游戏，数组 health 用于存储 10 个角色的 HP（healthPoint）
@@ -21,7 +22,7 @@ import "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
 
 contract AutomationTask is AutomationCompatible {
     
-    uint256 public constant SIZE = 10;
+    uint8 public constant SIZE = 10;
     uint256 public constant MAXIMUM_HEALTH = 1000;
     uint256[SIZE] public healthPoint;
     uint256 public lastTimeStamp;
@@ -35,6 +36,9 @@ contract AutomationTask is AutomationCompatible {
         interval = _interval;
         
         //在此添加 solidity 代码
+        for (uint256 i = 0; i < SIZE; i++) {
+            healthPoint[i] = MAXIMUM_HEALTH;
+        }
     }
 
     /*
@@ -44,6 +48,7 @@ contract AutomationTask is AutomationCompatible {
      */
     function fight(uint256 fighter) public {
         //在此添加 solidity 代码
+        healthPoint[fighter] -= 100;
     }
 
     /* 
@@ -63,12 +68,26 @@ contract AutomationTask is AutomationCompatible {
         override 
         returns (
             bool upkeepNeeded,
-            bytes memory /*performData*/
+            bytes memory performData
         )
     {
         //在此添加和修改 solidity 代码
-        upkeepNeeded = true;
+        upkeepNeeded = false;
+        if (block.timestamp - lastTimeStamp < interval) {
+            return (upkeepNeeded, "");
+        }
         
+        uint8[] memory needRecovery = new uint8[](SIZE);
+        uint8 j = 0;
+        for (uint8 i = 0; i < SIZE; i++) {
+            if (healthPoint[i] < MAXIMUM_HEALTH) {
+                upkeepNeeded = true;
+                needRecovery[j] = i;
+                j++;
+            }
+        }
+        performData = abi.encode(needRecovery);
+        return (upkeepNeeded, performData);
     }
 
     /* 
@@ -79,11 +98,15 @@ contract AutomationTask is AutomationCompatible {
      * 可以通过 performData 使用 checkUpkeep 的运算结果，减少 gas 费用
      */
     function performUpkeep(
-        bytes memory /*performData*/
+        bytes memory performData
     ) 
         external 
         override 
     {
         //在此添加 solidity 代码
+        uint8[] memory pos = abi.decode(performData, (uint8[]));
+        for (uint8 i = 0; i < pos.length; i++) {
+            healthPoint[pos[i]] = MAXIMUM_HEALTH;
+        }
     }
 }

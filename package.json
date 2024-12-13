@@ -11,10 +11,15 @@
   "license": "ISC",
   "devDependencies": {
     "@chainlink/contracts": "^0.8.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@openzeppelin/contracts": "^4.8.0",
-    "hardhat": "^2.19.1"
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.4",
+    "hardhat": "^2.22.17",
+    "hardhat-deploy": "^0.14.0",
+    "undici": "^6.21.0"
   },
-  "dependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0"
+  "resolutions": {
+    "@chainlink/contracts/ethers": "5.7.2"
   }
 }

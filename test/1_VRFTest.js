@@ -30,6 +30,7 @@ describe("单元测试：Chainlink VRF", async ()=> {
 
         const fundAmount = "1000000000000000000";
         await VRFCoordinator.fundSubscription(subscriptionId, fundAmount);
+        console.log(`Subscription created with ID: ${BigInt(subscriptionId)}, ${typeof subscriptionId}`);
 
         const keyHash = "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc";
         const vrfCoordinatorAddr = VRFCoordinator.target;
@@ -77,6 +78,7 @@ describe("单元测试：Chainlink VRF", async ()=> {
         const rand2 = await VRFConsumer.s_randomWords(2);
         const rand3 = await VRFConsumer.s_randomWords(3);
         const rand4 = await VRFConsumer.s_randomWords(4);
+        console.log(`Random numbers: ${rand0} ${rand1} ${rand2} ${rand3} ${rand4}`);
 
         expect(rand0).to.be.above(0, "1st random number is not greater than 0");
         expect(rand1).to.be.above(0, "1st random number is not greater than 0");

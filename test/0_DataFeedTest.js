@@ -50,6 +50,7 @@ describe("单元测试：Chainlink Data feed", async function() {
             deployDataFeedFixture
         )
         const response = await dataFeed.getLinkPriceFeed();
+        console.log(`link price feed contract address: ${response}`);
         assert.equal(response, mockV3AggregatorLink.target);
     })
 
@@ -79,7 +80,8 @@ describe("单元测试：Chainlink Data feed", async function() {
         );
         const dataFeedLatestPrice = await dataFeed.getLinkLatestPrice();
         const dataFeedRound = (await mockV3AggregatorLink.latestRoundData()).answer;
-        assert.equal(dataFeedLatestPrice.toString(), dataFeedRound.toString())
+        console.log(`${dataFeedLatestPrice.toString()}, ${dataFeedRound.toString()}`);
+        assert.equal(dataFeedLatestPrice.toString(), dataFeedRound.toString());
     })
 
     it("单元测试 0-4: 成功取得 BTC 价格数据", async () => {
@@ -88,7 +90,7 @@ describe("单元测试：Chainlink Data feed", async function() {
         );
         const dataFeedLatestPrice = await dataFeed.getBtcLatestPrice();
         const dataFeedRound = (await mockV3AggregatorBtc.latestRoundData()).answer;
-        assert.equal(dataFeedLatestPrice.toString(), dataFeedRound.toString())
+        assert.equal(dataFeedLatestPrice.toString(), dataFeedRound.toString());
     })
         
     it("单元测试 0-5: 成功取得 ETH 价格数据", async () => {
